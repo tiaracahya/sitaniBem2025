@@ -1,80 +1,61 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// 📦 Layouts
 import PublicLayout from "./layout/public";
+import AdminLayout from "./layout/admin";
+
+// 🌐 Public Pages
 import Home from "./pages/public/index";
-import Books from "./pages/public/books";
+import About from "./pages/public/about";
+import Contact from "./pages/public/contact";
+import Blog from "./pages/public/blog";
+import Service from "./pages/public/service";
+
+// 🔐 Auth Pages
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
-import AdminLayout from "./layout/admin";
-import Dashboard from "./pages/admin";
-import AdminBooks from "./pages/admin/books";
-import CreateBooks from "./pages/admin/books/create";
-import AdminAuthors from "./pages/admin/authors";
-import CreateAuthors from "./pages/admin/authors/create";
-import AdminGenres from "./pages/admin/genres";
-import CreateGenres from "./pages/admin/genres/create";
-import EditBooks from "./pages/admin/books/edit";
-import ShowBooks from "./pages/public/books/show";
-import EditAuthors from "./pages/admin/authors/edit";
-import EditGenres from "./pages/admin/genres/edit";
-import Blogs from "./pages/public/blog";
-import Services from "./pages/public/service";
-import TransactionHistory from "./pages/public/history";
-import AdminTransactions from "./pages/admin/transactions";
-import AdminUsers from "./pages/admin/users";
+
+// 🧾 Admin Modules (hanya index.jsx)
+import ProductPage from "./pages/admin/product/index";
+import SalesPage from "./pages/admin/sales/index";
+import ExpensePage from "./pages/admin/expense/index";
+import TransactionPage from "./pages/admin/transactions/index";
+import UserPage from "./pages/admin/users/index";
+
+
 
 function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route element={<PublicLayout />}>
-                    <Route index element={<Home />} />
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* 🌍 Public Routes */}
+        <Route element={<PublicLayout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="blog" element={<Blog />} />
+          <Route path="service" element={<Service />} />
+        </Route>
 
-                    <Route path="books">
-                        <Route index element={<Books />} />
-                        <Route path="show/:id" element={<ShowBooks />} />
-                    </Route>
+        {/* 🔑 Auth Routes */}
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
 
-                    <Route path="blogs" element={<Blogs />} />
-                    <Route path="services" element={<Services />} />
-                    <Route path="transactions" element={<TransactionHistory />} />
-                </Route>
+        {/* ⚙️ Admin Routes */}
+        <Route path="admin" element={<AdminLayout />}>
+          <Route path="products" element={<ProductPage />} />
+          <Route path="sales" element={<SalesPage />} />
+          <Route path="expenses" element={<ExpensePage />} />
+          <Route path="transactions" element={<TransactionPage />} />
+          <Route path="users" element={<UserPage />} />
+        </Route>
 
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
-
-                <Route path="admin" element={<AdminLayout />}>
-                    <Route index element={<Dashboard />} />
-
-                    <Route path="books">
-                        <Route index element={<AdminBooks />} />
-                        <Route path="create" element={<CreateBooks />} />
-                        <Route path="edit/:id" element={<EditBooks />} />
-                    </Route>
-
-                    <Route path="authors">
-                        <Route index element={<AdminAuthors />} />
-                        <Route path="create" element={<CreateAuthors />} />
-                        <Route path="edit/:id" element={<EditAuthors />} />
-                    </Route>
-
-                    <Route path="genres">
-                        <Route index element={<AdminGenres />} />
-                        <Route path="create" element={<CreateGenres />} />
-                        <Route path="edit/:id" element={<EditGenres />} />
-                    </Route>
-
-                    <Route path="transactions">
-                        <Route index element={<AdminTransactions />} />
-                    </Route>
-
-                    <Route path="users">
-                        <Route index element={<AdminUsers />} />
-                    </Route>
-                </Route>
-            </Routes>
-        </BrowserRouter >
-    );
+        
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
+

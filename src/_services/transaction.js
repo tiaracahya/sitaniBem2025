@@ -1,33 +1,26 @@
-import { API } from "../_api"
+import api from "./api";
 
 export const getTransactions = async () => {
-    const { data } = await API.get("/transactions", {
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
-        },
-    });
-    return data.data;
-}
-
-export const createTransactions = async (data) => {
-    try {
-        const response = await API.post("/transactions", data, {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
-            },
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Error creating book:", error.response?.data || error.message);
-        throw error;
-    }
+  const response = await api.get("/transactions");
+  return response.data;
 };
 
-export const showTransaction = async (id) => {
-    const { data } = await API.get(`/transactions/${id}`, {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-        },
-    });
-    return data.data;
-}
+export const getTransaction = async (id) => {
+  const response = await api.get(`/transactions/${id}`);
+  return response.data;
+};
+
+export const createTransaction = async (data) => {
+  const response = await api.post("/transactions", data);
+  return response.data;
+};
+
+export const updateTransaction = async (id, data) => {
+  const response = await api.put(`/transactions/${id}`, data);
+  return response.data;
+};
+
+export const deleteTransaction = async (id) => {
+  const response = await api.delete(`/transactions/${id}`);
+  return response.data;
+};
